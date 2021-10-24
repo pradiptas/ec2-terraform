@@ -7,14 +7,17 @@ workflows:
       - terraform/fmt:
           checkout: true
           context: terraform
+          path: ./infra
       - terraform/validate:
           checkout: true
           context: terraform
+          path: ./infra
           requires:
             - terraform/fmt
       - terraform/plan:
           checkout: true
           context: terraform
+          path: ./infra
           persist-workspace: true
           requires:
             - terraform/validate
