@@ -21,12 +21,16 @@ workflows:
           persist-workspace: true
           requires:
             - terraform/validate
+      - review-terraform:
+          type: approval
+          requires:
+            - terraform/plan
       - terraform/apply:
           attach-workspace: true
           context: terraform
           path: ./infra
           filters:
             branches:
-              only: master
+              only: main
           requires:
-            - terraform/plan
+            - review-terraform
